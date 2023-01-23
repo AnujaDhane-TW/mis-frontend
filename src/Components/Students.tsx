@@ -11,9 +11,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
-
-
-
+import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import axios from "axios";
 
 function createData(
     id: number, 
@@ -34,7 +34,21 @@ const rows = [
   createData(5, 'Anuja','Arun','Dhane',("01-09-2000"),1),
 ];
 
-export default function BasicTable() {
+export default function Students() {
+  const navigate = useNavigate();
+  function handleEdit() {
+    navigate("/edit");
+  }
+  // const [post, setPost] = useState<any>();
+  var students: any[]=[];
+
+  React.useEffect(() => {
+    
+  axios.get('http://localhost:5026/Student').then(resp => {
+      students=resp.data;
+      console.log(students);
+      });
+  }, []);
   return (
 
     <div>
@@ -80,7 +94,7 @@ export default function BasicTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {students.map((row) => (
             <TableRow
               key={row.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -88,13 +102,13 @@ export default function BasicTable() {
               <TableCell component="th" scope="row">
                 {row.id}
               </TableCell>
-              <TableCell align="center">{row.FirstName}</TableCell>
-              <TableCell align="center">{row.MiddleName}</TableCell>
-              <TableCell align="center">{row.LastName}</TableCell>
-              <TableCell align="center">{row.DateOfBirth}</TableCell>
-              <TableCell align="center">{row.SubjectId}</TableCell>
+              <TableCell align="center">{row.firstName}</TableCell>
+              <TableCell align="center">{row.middleName}</TableCell>
+              <TableCell align="center">{row.lastName}</TableCell>
+              <TableCell align="center">{row.dateOfBirth}</TableCell>
+              <TableCell align="center">{row.subjectId}</TableCell>
               <TableCell  align="center"> 
-                <IconButton aria-label="edit" size="large">
+                <IconButton aria-label="edit" size="large" onClick={handleEdit}>
                     <EditIcon fontSize="inherit" />
                 </IconButton>
                 </TableCell>
