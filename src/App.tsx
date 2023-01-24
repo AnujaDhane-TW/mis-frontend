@@ -2,8 +2,6 @@ import { Router } from 'react-router-dom';
 import './App.css';
 import RootRouter from './components/router/RootRouter';
 
-import Students from './components/Students';
-
 function App() {
   return (
     <div className="App">

@@ -18,10 +18,9 @@ export default function SubjectDropDown(prop:any) {
     return {  SubjectId, Name };
   }
   const subjects = [
-    //createData(1, 'Anuja','Arun','Dhane',new Date("01-09-2000"),1),
-    createData(1,'Chemistry'),
-    createData(3, 'Maths'),
-    createData(4, 'Physics'),
+    createData(1,'Maths'),
+    createData(2, 'Chemistry'),
+    createData(3, 'Physics'),
   ];
   return (
     <Box sx={{ minWidth: 120 }}>

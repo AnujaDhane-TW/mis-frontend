@@ -4,9 +4,24 @@ import {Formik, Form,
 import { TextField, Button, Card, CardContent, Typography} from '@mui/material';
 import classes from "./styles/StudentsStyle.module.css";
 import SubjectDropDown from './SubjectDropDown';
-
+import axios from "axios";
 function AddStudent() {
     
+  function setStudent(values: { firstName: string; middleName: string; lastName: string; dateOfBirth: string; favoriteSubject: any; }) {
+    const payload = {
+    firstName: values.firstName,
+    lastName: values.lastName,
+    middleName: values.middleName,
+    dateOfBirth: values.dateOfBirth,
+    subjectId: values.favoriteSubject.SubjectId
+    }
+    
+    axios.post('http://localhost:5026/Student',payload).then(resp => {
+      console.log(resp.data);
+      });
+
+  }
+
     return (  
       <Card sx={{ minWidth: 500, minHeight: 500 }}>
       <CardContent>
@@ -22,6 +37,7 @@ function AddStudent() {
             favoriteSubject: '', }
         }
         onSubmit={(values, actions) => {
+          setStudent(values)
           console.log({ values, actions })
           
           alert(JSON.stringify(values, null, 2))
