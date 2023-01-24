@@ -15,40 +15,24 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
 import axios from "axios";
 
-function createData(
-    id: number, 
-    FirstName:string, 
-    MiddleName: string,
-    LastName:string,
-    DateOfBirth: string,
-    SubjectId: number
-  ) {
-    return { id, FirstName, MiddleName, LastName, DateOfBirth, SubjectId };
-  }
-
-const rows = [
-  //createData(1, 'Anuja','Arun','Dhane',new Date("01-09-2000"),1),
-  createData(2, 'Anuja','Arun','Dhane',("01-09-2000"),1),
-  createData(3, 'Anuja','Arun','Dhane',("01-09-2000"),1),
-  createData(4, 'Anuja','Arun','Dhane',("01-09-2000"),1),
-  createData(5, 'Anuja','Arun','Dhane',("01-09-2000"),1),
-];
 
 export default function Students() {
   const navigate = useNavigate();
   function handleEdit() {
     navigate("/edit");
   }
-  // const [post, setPost] = useState<any>();
-  var students: any[]=[];
-
-  React.useEffect(() => {
-    
-  axios.get('http://localhost:5026/Student').then(resp => {
-      students=resp.data;
-      console.log(students);
+   const [students, setStudents] = useState<any>([]);
+  //var students: any[]=[];
+  function getStudents() {
+    axios.get('http://localhost:5026/Student').then(resp => {
+      setStudents(resp.data);
       });
-  }, []);
+      console.log(students);
+  }
+  React.useEffect(() => {
+      getStudents();
+  }, [ ]);
+
   return (
 
     <div>
@@ -94,7 +78,7 @@ export default function Students() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {students.map((row) => (
+          {students.map((row:any) => (
             <TableRow
               key={row.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -106,7 +90,7 @@ export default function Students() {
               <TableCell align="center">{row.middleName}</TableCell>
               <TableCell align="center">{row.lastName}</TableCell>
               <TableCell align="center">{row.dateOfBirth}</TableCell>
-              <TableCell align="center">{row.subjectId}</TableCell>
+              <TableCell align="center">{row.favoriteSubject.name}</TableCell>
               <TableCell  align="center"> 
                 <IconButton aria-label="edit" size="large" onClick={handleEdit}>
                     <EditIcon fontSize="inherit" />
