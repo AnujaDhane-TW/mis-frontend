@@ -18,8 +18,8 @@ import axios from "axios";
 
 export default function Students() {
   const navigate = useNavigate();
-  function handleEdit() {
-    navigate("/edit");
+  function handleEdit(student:any) {
+    navigate("/edit",{state:{student:student}});
   }
    const [students, setStudents] = useState<any>([]);
   //var students: any[]=[];
@@ -29,6 +29,7 @@ export default function Students() {
       });
       console.log(students);
   }
+  
   React.useEffect(() => {
       getStudents();
   }, [ ]);
@@ -78,21 +79,21 @@ export default function Students() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {students.map((row:any) => (
+          {students.map((student:any) => (
             <TableRow
-              key={row.id}
+              key={student.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.id}
+                {student.id}
               </TableCell>
-              <TableCell align="center">{row.firstName}</TableCell>
-              <TableCell align="center">{row.middleName}</TableCell>
-              <TableCell align="center">{row.lastName}</TableCell>
-              <TableCell align="center">{row.dateOfBirth}</TableCell>
-              <TableCell align="center">{row.favoriteSubject.name}</TableCell>
+              <TableCell align="center">{student.firstName}</TableCell>
+              <TableCell align="center">{student.middleName}</TableCell>
+              <TableCell align="center">{student.lastName}</TableCell>
+              <TableCell align="center">{student.dateOfBirth}</TableCell>
+              <TableCell align="center">{student.favoriteSubject.name}</TableCell>
               <TableCell  align="center"> 
-                <IconButton aria-label="edit" size="large" onClick={handleEdit}>
+                <IconButton aria-label="edit" size="large" onClick={()=>handleEdit(student)}>
                     <EditIcon fontSize="inherit" />
                 </IconButton>
                 </TableCell>

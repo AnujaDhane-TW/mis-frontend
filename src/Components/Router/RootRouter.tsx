@@ -1,8 +1,7 @@
-import { Router, Routes, Route, BrowserRouter } from "react-router-dom";
-import * as React from 'react';
-import { Component } from 'react';
-import Students from "../Students";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import EditStudent from "../EditStudent";
+import Students from "../Students";
+
 function RootRouter() {
     return (
       <BrowserRouter>
