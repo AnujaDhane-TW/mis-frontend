@@ -31,11 +31,12 @@ export default function SubjectDropDown(prop:any) {
           labelId="demo-simple-select-label"
           id="demo-simple-select"  
           label="Subjects"
+          name={prop.name}
           value={subject}
-          onChange={handleChange}
+          onChange={prop.onChange}
         > 
         {subjects.map((subject:any) => (
-          <MenuItem value={subject.SubjectId} key={subject.SubjectId}>{subject.Name}</MenuItem>
+          <MenuItem value={subject} key={subject.SubjectId}>{subject.Name}</MenuItem>
           ))}
         </Select>
       </FormControl>

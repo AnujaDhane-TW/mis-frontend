@@ -17,12 +17,15 @@ import axios from "axios";
 
 
 export default function Students() {
+  const [students, setStudents] = useState<any>([]);
   const navigate = useNavigate();
   function handleEdit(student:any) {
     navigate("/edit",{state:{student:student}});
   }
-   const [students, setStudents] = useState<any>([]);
-  //var students: any[]=[];
+  function handleAdd() {
+    navigate("/add");
+  }
+
   function getStudents() {
     axios.get('http://localhost:5026/Student').then(resp => {
       setStudents(resp.data);
@@ -58,9 +61,9 @@ export default function Students() {
         </form>
        </div>
        <div>
-        <Button startIcon={<AddIcon />} >
+        <Button onClick = {handleAdd} startIcon={<AddIcon />} >
                 Add Student
-            </Button>
+        </Button>
             <IconButton aria-label="delete" size="large">
                 <DeleteIcon fontSize="inherit" />
         </IconButton>

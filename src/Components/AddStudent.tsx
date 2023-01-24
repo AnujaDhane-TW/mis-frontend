@@ -2,27 +2,24 @@ import React, { useState } from 'react'
 import {Formik, Form,
   } from 'formik'
 import { TextField, Button, Card, CardContent, Typography} from '@mui/material';
-import { useLocation } from 'react-router-dom'
 import classes from "./styles/StudentsStyle.module.css";
 import SubjectDropDown from './SubjectDropDown';
 
-function EditStudent(prop:any) {
-    const location = useLocation();
-    const student = location.state.student;
-   
+function AddStudent() {
+    
     return (  
       <Card sx={{ minWidth: 500, minHeight: 500 }}>
       <CardContent>
         <Typography sx={{ fontSize: 20 }} color="text.primary" gutterBottom>
-          Edit Student Details
+          Add Student Details
           </Typography>
         <Formik
         initialValues={
-          { firstName: student.firstName,
-            middleName: student.middleName,
-            lastName: student.lastName,
-            dateOfBirth: student.dateOfBirth,
-            favoriteSubject: student.favoriteSubject.name, }
+          { firstName: '',
+            middleName:'',
+            lastName: '',
+            dateOfBirth: '',
+            favoriteSubject: '', }
         }
         onSubmit={(values, actions) => {
           console.log({ values, actions })
@@ -87,4 +84,4 @@ function EditStudent(prop:any) {
     );
 }
 
-export default EditStudent;
+export default AddStudent;
