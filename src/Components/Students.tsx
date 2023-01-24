@@ -25,7 +25,11 @@ export default function Students() {
   function handleAdd() {
     navigate("/add");
   }
-
+  function handleDelete(student: any): void {
+    axios.delete(`http://localhost:5026/Student/${student.id}`).then(resp => {
+      console.log(resp.data);
+      });
+  }
   function getStudents() {
     axios.get('http://localhost:5026/Student').then(resp => {
       setStudents(resp.data);
@@ -78,7 +82,7 @@ export default function Students() {
             <TableCell align="center">Middle Name</TableCell>
             <TableCell align="center">Last Name</TableCell>
             <TableCell align="center">Date of Birth</TableCell>
-            <TableCell align="center">Favourite Subject</TableCell>
+            <TableCell align="center">Favorite Subject</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -101,7 +105,7 @@ export default function Students() {
                 </IconButton>
                 </TableCell>
               <TableCell > 
-                <IconButton aria-label="delete" size="large">
+                <IconButton aria-label="delete" size="large" onClick={()=>handleDelete(student)}>
                     <DeleteIcon fontSize="inherit" />
                 </IconButton>
               </TableCell>

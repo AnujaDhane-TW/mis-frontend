@@ -5,11 +5,26 @@ import { TextField, Button, Card, CardContent, Typography} from '@mui/material';
 import { useLocation } from 'react-router-dom'
 import classes from "./styles/StudentsStyle.module.css";
 import SubjectDropDown from './SubjectDropDown';
+import axios from "axios";
 
 function EditStudent(prop:any) {
     const location = useLocation();
     const student = location.state.student;
    
+    function setStudent(values: { firstName: string; middleName: string; lastName: string; dateOfBirth: string; favoriteSubject: any; }) {
+      const payload = {
+      id: student.id,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      middleName: values.middleName,
+      dateOfBirth: values.dateOfBirth,
+      subjectId: values.favoriteSubject.SubjectId
+      }
+      
+      axios.put('http://localhost:5026/Student',payload).then(resp => {
+        console.log(resp.data);
+        });
+    }
     return (  
       <Card sx={{ minWidth: 500, minHeight: 500 }}>
       <CardContent>
@@ -26,7 +41,7 @@ function EditStudent(prop:any) {
         }
         onSubmit={(values, actions) => {
           console.log({ values, actions })
-          
+          setStudent(values)
           alert(JSON.stringify(values, null, 2))
           actions.setSubmitting(false)
         }}
